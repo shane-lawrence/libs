@@ -1966,7 +1966,7 @@ bpf_map_id_up_base(unsigned extents, struct uid_gid_map *map, u32 id)
 // UP means get NS id (uid/gid) from kuid/kgid
 static __always_inline u32 bpf_map_id_up(struct uid_gid_map *map, u32 id)
 {
-	struct uid_gid_extent *extent;
+	struct uid_gid_extent *extent = NULL;
 	unsigned extents = _READ(map->nr_extents);
 
 	if (extents <= UID_GID_MAP_MAX_BASE_EXTENTS) {
@@ -2367,6 +2367,7 @@ FILLER(proc_startupdate_3, true)
 	struct clone_args cl_args;
 #endif
 
+	res = PPM_FAILURE_BUG;
 	retval = bpf_syscall_get_retval(data->ctx);
 
 	task = (struct task_struct *)bpf_get_current_task();
