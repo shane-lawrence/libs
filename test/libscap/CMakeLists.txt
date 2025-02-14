@@ -57,11 +57,6 @@ set_source_files_properties(
 																	  "HAVE_SYS_SYSMACROS_H"
 )
 
-# Add scap_engine_util for Linux tests
-if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-	list(APPEND LIBSCAP_TESTS_LIBRARIES scap_engine_util)
-endif()
-
 # Helpers are not engine-specific so we always include them
 file(GLOB_RECURSE LIBSCAP_TESTS_UTILS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/helpers/*cpp")
 list(APPEND LIBSCAP_TESTS_SOURCES ${LIBSCAP_TESTS_UTILS_SOURCES})
@@ -72,6 +67,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 		 "${CMAKE_CURRENT_SOURCE_DIR}/test_suites/userspace/linux/*.cpp"
 	)
 	list(APPEND LIBSCAP_TEST_SOURCES ${LINUX_TEST_SUITE})
+	list(APPEND LIBSCAP_TESTS_LIBRARIES scap_engine_util)
 endif()
 
 # Engine-specific tests
