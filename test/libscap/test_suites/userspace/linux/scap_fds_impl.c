@@ -35,5 +35,9 @@ int32_t test_time_wait_socket_at_buffer_end(void) {
 
 	snprintf(filepath, sizeof(filepath), "%s/scap_test_sockets.txt", LIBSCAP_TEST_DATA_PATH);
 
-	return scap_fd_read_ipv4_sockets_from_proc_fs(filepath, SCAP_L4_TCP, &sockets, error);
+	int32_t result = scap_fd_read_ipv4_sockets_from_proc_fs(filepath, SCAP_L4_TCP, &sockets, error);
+
+	scap_fd_free_table(&sockets);
+
+	return result;
 }
