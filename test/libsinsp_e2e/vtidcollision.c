@@ -16,10 +16,7 @@ limitations under the License.
 
 */
 
-#ifndef _GNU_SOURCE
 #define _GNU_SOURCE
-#endif
-
 #include <errno.h>
 #include <fcntl.h>
 #include <sched.h>
