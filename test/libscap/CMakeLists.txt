@@ -126,3 +126,5 @@ add_executable(libscap_test ${LIBSCAP_TESTS_SOURCES})
 target_include_directories(libscap_test ${LIBSCAP_TESTS_INCLUDE})
 target_link_libraries(libscap_test ${LIBSCAP_TESTS_LIBRARIES})
 add_dependencies(libscap_test ${LIBSCAP_TESTS_DEPENDENCIES})
+
+target_compile_definitions(libscap_test PRIVATE -D_GNU_SOURCE)
