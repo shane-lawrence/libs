@@ -209,16 +209,16 @@ TEST(scap_event, test_scap_create_event) {
 	ASSERT_EQ(lens16[5], 8);
 	// Assert parameters
 	char *val = ((char *)evt + sizeof(scap_evt) + 6 * sizeof(uint16_t));
-	ASSERT_EQ(*(int32_t *)val, fd);
+	ASSERT_EQ(memcmp(val, (uint8_t*)&fd, sizeof(fd)), 0);
 	val += 8;
 	ASSERT_STREQ(val, name);
 	val += 12;
-	ASSERT_EQ(*(uint32_t *)val, flags);
+	ASSERT_EQ(memcmp(val, (uint8_t*)&flags, sizeof(flags)), 0);
 	val += 4;
-	ASSERT_EQ(*(uint32_t *)val, mode);
+	ASSERT_EQ(memcmp(val, (uint8_t*)&mode, sizeof(mode)), 0);
 	val += 4;
-	ASSERT_EQ(*(uint32_t *)val, dev);
+	ASSERT_EQ(memcmp(val, (uint8_t*)&dev, sizeof(dev)), 0);
 	val += 4;
-	ASSERT_EQ(*(uint64_t *)val, ino);
+	ASSERT_EQ(memcmp(val, (uint8_t*)&ino, sizeof(ino)), 0);
 	free(evt);
 }
