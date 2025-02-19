@@ -104,7 +104,7 @@ TEST(scap_event, empty_clone) {
 	ASSERT_NE(maybe_evt, nullptr);
 	std::unique_ptr<scap_evt, decltype(free) *> evt{maybe_evt, free};
 
-	EXPECT_EQ(evt->nparams, 0);
+	EXPECT_EQ(scap_event_get_nparams(evt.get()), 0);
 
 	scap_sized_buffer decoded_params[PPM_MAX_EVENT_PARAMS];
 	uint32_t n = scap_event_decode_params(evt.get(), decoded_params);
@@ -119,7 +119,7 @@ TEST(scap_event, int_args) {
 	ASSERT_NE(maybe_evt, nullptr);
 	std::unique_ptr<scap_evt, decltype(free) *> evt{maybe_evt, free};
 
-	EXPECT_EQ(evt->nparams, 2);
+	EXPECT_EQ(scap_event_get_nparams(evt.get()), 2);
 
 	scap_sized_buffer decoded_params[PPM_MAX_EVENT_PARAMS];
 	uint32_t n = scap_event_decode_params(evt.get(), decoded_params);
@@ -144,7 +144,7 @@ TEST(scap_event, empty_buffers) {
 	ASSERT_NE(maybe_evt, nullptr);
 	std::unique_ptr<scap_evt, decltype(free) *> evt{maybe_evt, free};
 
-	EXPECT_EQ(evt->nparams, 2);
+	EXPECT_EQ(scap_event_get_nparams(evt.get()), 2);
 
 	scap_sized_buffer decoded_params[PPM_MAX_EVENT_PARAMS];
 	uint32_t n = scap_event_decode_params(evt.get(), decoded_params);
@@ -198,7 +198,7 @@ TEST(scap_event, test_scap_create_event) {
 	ASSERT_EQ(evt->tid, tid);
 	ASSERT_EQ(evt->type, PPME_SYSCALL_OPEN_X);
 	ASSERT_EQ(evt->len, total_evt_len);
-	ASSERT_EQ(evt->nparams, 6);
+	ASSERT_EQ(scap_event_get_nparams(evt), 6);
 	// Assert len array
 	uint16_t *lens16 = (uint16_t *)((char *)evt + sizeof(scap_evt));
 	ASSERT_EQ(lens16[0], 8);
